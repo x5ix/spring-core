@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-init-method="initFromRobot"
+	>
+	
+	<import resource="robot.xml"/>
+		
+	<bean id="robotCollection" class="mih.me.SimpleSpringCoreProjectRobot.RobotCollection" >
+		<property name="army">
+			<list>
+				<bean id="robot2" parent="robotBaseModel">
+					<property name="color" value="white" />
+				</bean>
+				
+				<bean id="robot3" parent="robotBaseModel">
+					<property name="head" ref="toshibaHead" />
+					<property name="legs" ref="toshibaLegs" />
+					<property name="color" value="red" />
+				</bean>
+				
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="redRobotCollection" parent="robotCollection">
+		<property name="army" value="#{robotCollection.army.?[color.toUpperCase() eq 'RED']}" />
+	</bean>
+		
+	<bean id="actionReplacer" class="mih.me.SimpleSpringCoreProjectRobot.ActionReplacer" />
+
+	<bean id="robotConveyor" class="mih.me.SimpleSpringCoreProjectRobot.RobotConveyor" >
+		<lookup-method name="createRobot" bean="robot" />
+	</bean>
+
+	<bean class="mih.me.SimpleSpringCoreProjectRobot.TestBeanPostProcessor" />
+
+	
+	
+</beans>

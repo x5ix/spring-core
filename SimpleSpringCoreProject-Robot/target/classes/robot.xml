@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-init-method="initFromRobot"
+	>
+	
+	<bean id="robot" parent="robotBaseModel" scope="prototype">
+		<property name="color" value="black" />
+		<replaced-method name="action" replacer="actionReplacer" />
+	</bean>
+	
+	<bean id="robotBaseModel" class="mih.me.SimpleSpringCoreProjectRobot.Robot" scope="prototype" > 
+		<constructor-arg ref="sonyHead" />
+		<constructor-arg ref="sonyLegs" />
+	</bean>
+	
+	<bean id="sonyHead" class="mih.me.SimpleSpringCoreProjectRobot.impl.SonyHead" />
+	<bean id="sonyLegs" class="mih.me.SimpleSpringCoreProjectRobot.impl.SonyLegs"/>
+	<bean id="toshibaHead" class="mih.me.SimpleSpringCoreProjectRobot.impl.ToshibaHead"/>
+	<bean id="toshibaLegs" class="mih.me.SimpleSpringCoreProjectRobot.impl.ToshibaLegs"/>
+	
+	
+</beans>
